@@ -15,41 +15,46 @@ class AuthMockService implements AuthService {
     _updateUser(null);
   });
 
+  @override
   ChatUser? get currentUser {
     return _currentUser;
   }
 
+  @override
   Stream<ChatUser?> get userChanges {
     return _userStream;
   }
 
+  @override
   Future<void> signup(
     String name,
     String email,
     String password,
-    File image,
+    File? image,
   ) async {
     final newUser = ChatUser(
       id: Random().nextDouble().toString(),
       name: name,
       email: email,
-      imageUrl: image.path,
+      imageUrl: image?.path ?? 'assets/images/...',
     );
 
     users.putIfAbsent(email, () => newUser);
     _updateUser(newUser);
   }
 
+  @override
   Future<void> login(String email, String password) async {
     _updateUser(users[email]);
   }
 
+  @override
   Future<void> logout() async {
     _updateUser(null);
   }
 
   static void _updateUser(ChatUser? user) {
     _currentUser = user;
-    _controller?.add(null);
+    _controller?.add(_currentUser);
   }
 }
