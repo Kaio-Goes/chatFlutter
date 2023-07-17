@@ -14,7 +14,7 @@ class ChatPage extends StatelessWidget {
         title: const Text('KGS Chat'),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(18.0),
             child: DropdownButton(
               icon: Icon(
                 Icons.more_vert,
