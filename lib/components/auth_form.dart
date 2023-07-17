@@ -13,7 +13,8 @@ class _AuthFormState extends State<AuthForm> {
   final _authFormData = AuthFormData();
 
   void _submit() {
-    _formKey.currentState?.validate();
+    final isValid = _formKey.currentState?.validate() ?? false;
+    if (!isValid) return;
   }
 
   @override
@@ -34,6 +35,13 @@ class _AuthFormState extends State<AuthForm> {
                     decoration: const InputDecoration(
                       label: Text('Nome'),
                     ),
+                    validator: (value) {
+                      final name = value ?? '';
+                      if (name.trim().length < 5) {
+                        return 'Nome deve ter no mínimo 5 caracteres';
+                      }
+                      return null;
+                    },
                   ),
                 TextFormField(
                   key: const ValueKey('email'),
@@ -42,6 +50,20 @@ class _AuthFormState extends State<AuthForm> {
                   decoration: const InputDecoration(
                     label: Text('E-mail'),
                   ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Por favor, digite um e-mail.';
+                    }
+                    const pattern =
+                        r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
+                    final regExp = RegExp(pattern);
+
+                    if (!regExp.hasMatch(value)) {
+                      return 'Por favor, digite um e-mail válido.';
+                    }
+
+                    return null;
+                  },
                 ),
                 TextFormField(
                   key: const ValueKey('password'),
@@ -51,6 +73,13 @@ class _AuthFormState extends State<AuthForm> {
                   decoration: const InputDecoration(
                     label: Text('Senha'),
                   ),
+                  validator: (value) {
+                    final password = value ?? '';
+                    if (password.length < 6) {
+                      return 'Senha deve ter no mínimo 6 caracteres.';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton(
