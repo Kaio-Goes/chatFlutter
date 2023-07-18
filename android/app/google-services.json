@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "318924588426",
+    "project_id": "kgs-chat",
+    "storage_bucket": "kgs-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318924588426:android:7722fecc45d4a0bc49f473",
+        "android_client_info": {
+          "package_name": "br.com.kgs.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318924588426-r3gcui0f6gtmdqq6msmd3j117gkrd60v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN2QepgipPwPGZijxHq_gArDIF_eXvloI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318924588426-r3gcui0f6gtmdqq6msmd3j117gkrd60v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
