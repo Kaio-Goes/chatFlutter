@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 class ChatNotificationService with ChangeNotifier {
   List<ChatNotification> itemsList = [];
 
+  int get itemsCount {
+    return itemsList.length;
+  }
+
   List<ChatNotification> get items {
     return [...itemsList];
   }
