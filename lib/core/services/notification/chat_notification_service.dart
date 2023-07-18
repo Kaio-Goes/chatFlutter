@@ -1,7 +1,7 @@
 import 'package:chat/core/models/chat_notification.dart';
 import 'package:flutter/material.dart';
 
-class PushNotificationService with ChangeNotifier {
+class ChatNotificationService with ChangeNotifier {
   List<ChatNotification> itemsList = [];
 
   List<ChatNotification> get items {
@@ -15,5 +15,6 @@ class PushNotificationService with ChangeNotifier {
 
   void remove(int i) {
     itemsList.removeAt(i);
+    notifyListeners();
   }
 }
