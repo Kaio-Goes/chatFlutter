@@ -41,88 +41,103 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(20),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                if (_authFormData.isSignup)
-                  UserImagePicker(onImagePick: _handleImagePick),
-                if (_authFormData.isSignup)
-                  TextFormField(
-                    key: const ValueKey('name'),
-                    initialValue: _authFormData.name,
-                    onChanged: (name) => _authFormData.name = name,
-                    decoration: const InputDecoration(
-                      label: Text('Nome'),
+    final deviceSize = MediaQuery.of(context).size;
+
+    return Column(
+      children: [
+        SizedBox(
+          height: deviceSize.height * 0.18,
+          child: Image.asset(
+            'assets/images/Kgs.png',
+            fit: BoxFit.cover,
+          ),
+        ),
+        Card(
+          margin: const EdgeInsets.all(20),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    if (_authFormData.isSignup)
+                      UserImagePicker(onImagePick: _handleImagePick),
+                    if (_authFormData.isSignup)
+                      TextFormField(
+                        key: const ValueKey('name'),
+                        initialValue: _authFormData.name,
+                        onChanged: (name) => _authFormData.name = name,
+                        decoration: const InputDecoration(
+                          label: Text('Nome'),
+                        ),
+                        validator: (value) {
+                          final name = value ?? '';
+                          if (name.trim().length < 5) {
+                            return 'Nome deve ter no mínimo 5 caracteres';
+                          }
+                          return null;
+                        },
+                      ),
+                    TextFormField(
+                      key: const ValueKey('email'),
+                      initialValue: _authFormData.email,
+                      onChanged: (email) => _authFormData.email = email,
+                      decoration: const InputDecoration(
+                        label: Text('E-mail'),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Por favor, digite um e-mail.';
+                        }
+                        const pattern =
+                            r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
+                        final regExp = RegExp(pattern);
+
+                        if (!regExp.hasMatch(value)) {
+                          return 'Por favor, digite um e-mail válido.';
+                        }
+
+                        return null;
+                      },
                     ),
-                    validator: (value) {
-                      final name = value ?? '';
-                      if (name.trim().length < 5) {
-                        return 'Nome deve ter no mínimo 5 caracteres';
-                      }
-                      return null;
-                    },
-                  ),
-                TextFormField(
-                  key: const ValueKey('email'),
-                  initialValue: _authFormData.email,
-                  onChanged: (email) => _authFormData.email = email,
-                  decoration: const InputDecoration(
-                    label: Text('E-mail'),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Por favor, digite um e-mail.';
-                    }
-                    const pattern =
-                        r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
-                    final regExp = RegExp(pattern);
-
-                    if (!regExp.hasMatch(value)) {
-                      return 'Por favor, digite um e-mail válido.';
-                    }
-
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  key: const ValueKey('password'),
-                  initialValue: _authFormData.password,
-                  onChanged: (password) => _authFormData.password = password,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    label: Text('Senha'),
-                  ),
-                  validator: (value) {
-                    final password = value ?? '';
-                    if (password.length < 6) {
-                      return 'Senha deve ter no mínimo 6 caracteres.';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 12),
-                ElevatedButton(
-                  onPressed: _submit,
-                  child: Text(_authFormData.isLogin ? 'Entrar' : 'Cadastrar'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _authFormData.toggleAuthMode();
-                    });
-                  },
-                  child: Text(_authFormData.isLogin
-                      ? 'Criar uma nova conta?'
-                      : 'Já possui conta?'),
-                )
-              ],
-            )),
-      ),
+                    TextFormField(
+                      key: const ValueKey('password'),
+                      initialValue: _authFormData.password,
+                      onChanged: (password) =>
+                          _authFormData.password = password,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        label: Text('Senha'),
+                      ),
+                      validator: (value) {
+                        final password = value ?? '';
+                        if (password.length < 6) {
+                          return 'Senha deve ter no mínimo 6 caracteres.';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: _submit,
+                      child:
+                          Text(_authFormData.isLogin ? 'Entrar' : 'Cadastrar'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _authFormData.toggleAuthMode();
+                        });
+                      },
+                      child: Text(_authFormData.isLogin
+                          ? 'Criar uma nova conta?'
+                          : 'Já possui conta?'),
+                    )
+                  ],
+                )),
+          ),
+        ),
+      ],
     );
   }
 }

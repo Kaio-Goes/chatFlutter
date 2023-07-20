@@ -14,6 +14,7 @@ class AuthOrAppPage extends StatelessWidget {
 
   Future<void> init(BuildContext context) async {
     await Firebase.initializeApp();
+    // ignore: use_build_context_synchronously
     await Provider.of<ChatNotificationService>(context, listen: false).init();
   }
 
